@@ -1,6 +1,8 @@
 -- 创建数据库
 CREATE DATABASE IF NOT EXISTS `example` CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci;
+-- 切换数据库
 USE `example`;
+
 -- 创建表
 CREATE TABLE IF NOT EXISTS `user_wallet`
 (
@@ -12,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `user_wallet`
     PRIMARY KEY (`id`),
     UNIQUE KEY `uk_user_id` (`user_id`)
 ) COMMENT ='用户钱包表';
+
 -- 初始化用户钱包数据
 INSERT INTO `user_wallet` (`id`, `user_id`, `username`, `balance`)
 VALUES (1, 1, '李白', 1000),
@@ -37,4 +40,4 @@ SELECT * FROM information_schema.innodb_trx;
 -- SQL-1
 SELECT balance FROM user_wallet WHERE user_id = 1;
 -- SQL-2
-UPDATE user_wallet SET balance = balance - 100 WHERE user_id = 1;
+UPDATE user_wallet SET balance = balance + 100 WHERE user_id = 1;

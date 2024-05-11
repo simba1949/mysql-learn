@@ -17,11 +17,11 @@ CREATE TABLE IF NOT EXISTS `user_wallet`
 
 -- 初始化用户钱包数据
 INSERT INTO `user_wallet` (`id`, `user_id`, `username`, `balance`)
-VALUES (1, 1, '李白', 1000),
-       (2, 2, '杜甫', 1000);
+VALUES (1, 1, '李白', 1),
+       (2, 2, '杜甫', 1);
 
 -- 前置处理
--- 查询事务是否是自动提交，1表示是，0表示否
+-- 【会话级别】查询事务是否是自动提交，1表示是，0表示否
 select @@autocommit;
 -- 设置事务不自动提交
 set autocommit=0;
@@ -37,7 +37,10 @@ select @@transaction_isolation;
 # 查看当前正在运行的事务
 SELECT * FROM information_schema.innodb_trx;
 
+-- 恢复原值
+UPDATE user_wallet SET balance = 1 WHERE user_id = 1;
+
 -- SQL-1
 SELECT balance FROM user_wallet WHERE user_id = 1;
 -- SQL-2
-UPDATE user_wallet SET balance = balance + 100 WHERE user_id = 1;
+UPDATE user_wallet SET balance = balance + 1 WHERE user_id = 1;
